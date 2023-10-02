@@ -1,12 +1,13 @@
 import { HomeStyled } from "./HomeStyled";
 import { Fade } from "react-awesome-reveal";
+import HomeVideo from "./../../assets/globeVid.mp4";
 
 const Home = () => {
   return (
     <Fade triggerOnce className="home-fade">
       <HomeStyled id="home">
         <video autoPlay loop muted>
-          <source src="/assets/globeVid.mp4" type="video/mp4" />
+          <source src={HomeVideo} type="video/mp4" />
           Your browser doesn't support video tags.
         </video>
         <div className="content">
