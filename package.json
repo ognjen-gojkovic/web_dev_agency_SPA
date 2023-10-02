@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ognjen-gojkovic.github.io/web_dev_agency_SPA",
   "name": "web_dev_agency_spa",
   "version": "0.1.0",
   "private": true,
@@ -25,6 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "gh-pages": "^6.0.0"
   }
 }
