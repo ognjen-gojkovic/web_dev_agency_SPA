@@ -77,6 +77,13 @@ export const ProjectStyled = styled.div<Props>`
       }
     }
   }
+  @media screen and (max-width: 480px) {
+    height: 100%;
+
+    .wrapper {
+      flex-direction: column;
+    }
+  }
 
   @media screen and (min-width: 481px) and (max-width: 768px) {
     height: 100%;

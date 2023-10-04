@@ -39,6 +39,7 @@ const AboutUs: React.FC = () => {
     },
     {
       name: "Rock With Us!!1",
+      img: AddUser,
       title: "#contact",
     },
   ];
@@ -89,57 +90,92 @@ const AboutUs: React.FC = () => {
       </Fade>
 
       <div className="team-members">
-        <Fade direction="right" triggerOnce>
+        <Fade direction="left" triggerOnce>
           <h2>Our Squad</h2>
           <div className="members">
             {team.map((member, idx) => {
               let teamMember;
 
-              if (member.name !== "Rock With Us!!1") {
-                teamMember = (
-                  <figure>
-                    <img
-                      src={Fire}
-                      alt="fire"
-                      className={`fire ${
-                        clickFire && fireIdx === idx ? "burn" : ""
-                      }`}
-                      onClick={(e) => {
-                        setClickFire(true);
-                        setFireIdx(idx);
-                      }}
-                    />
-                    <img src={member.img} alt="ozzy" />
-                    <a
-                      href={`https://en.wikipedia.org/wiki/${member.name.replace(
-                        " ",
-                        "_"
-                      )}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <div className="figure-scroll">
-                        <figcaption>{member.title}</figcaption>
-                        <figcaption>{member.name}</figcaption>
-                        <span>
-                          <i className="gg-chevron-down"></i>
-                        </span>
-                      </div>
-                    </a>
-                  </figure>
-                );
-              } else {
-                teamMember = (
-                  <a href={member.title}>
-                    <figure>
-                      <img src={AddUser} alt="add-user" />;
-                      <div className="figure">
-                        <figcaption>{member.name}</figcaption>
-                      </div>
-                    </figure>
+              return (
+                <figure>
+                  <img
+                    src={Fire}
+                    alt="fire"
+                    className={`fire ${
+                      clickFire && fireIdx === idx ? "burn" : ""
+                    }`}
+                    onClick={(e) => {
+                      setClickFire(true);
+                      setFireIdx(idx);
+                    }}
+                  />
+                  <img src={member.img} alt={member.name} />
+                  <a
+                    href={`${
+                      team.length - 1 === idx
+                        ? "#contact"
+                        : `${`https://en.wikipedia.org/wiki/${member.name.replace(
+                            " ",
+                            "_"
+                          )}`}`
+                    }`}
+                    target={`${team.length - 1 === idx ? "" : "_blank"}`}
+                    rel={`${team.length - 1 === idx ? "" : "noreferrer"}`}
+                  >
+                    <div className="figure-scroll">
+                      <figcaption>{member.title}</figcaption>
+                      <figcaption>{member.name}</figcaption>
+                      <span>
+                        <i className="gg-chevron-down"></i>
+                      </span>
+                    </div>
                   </a>
-                );
-              }
+                </figure>
+              );
+
+              // if (member.name !== "Rock With Us!!1") {
+              //   teamMember = (
+              //     <figure>
+              //       <img
+              //         src={Fire}
+              //         alt="fire"
+              //         className={`fire ${
+              //           clickFire && fireIdx === idx ? "burn" : ""
+              //         }`}
+              //         onClick={(e) => {
+              //           setClickFire(true);
+              //           setFireIdx(idx);
+              //         }}
+              //       />
+              //       <img src={member.img} alt="ozzy" />
+              //       <a
+              //         href={`https://en.wikipedia.org/wiki/${member.name.replace(
+              //           " ",
+              //           "_"
+              //         )}`}
+              //         target="_blank"
+              //         rel="noreferrer"
+              //       >
+              //         <div className="figure-scroll">
+              //           <figcaption>{member.title}</figcaption>
+              //           <figcaption>{member.name}</figcaption>
+              //           <span>
+              //             <i className="gg-chevron-down"></i>
+              //           </span>
+              //         </div>
+              //       </a>
+              //     </figure>
+              //   );
+              // } else {
+              //   teamMember = (
+              //     <a href={member.title} className="add-user">
+              //       <img src={AddUser} alt="add-user" />;
+              //       <div className="figure">
+              //         <figcaption>{member.name}</figcaption>
+              //       </div>
+              //     </a>
+              //   );
+              // }
 
               return teamMember;
             })}

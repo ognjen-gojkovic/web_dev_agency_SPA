@@ -35,8 +35,8 @@ function App(): React.ReactElement {
 }
 
 const AppStyled = styled.main`
-  /* width: 80%;
-  height: 100%; */
+  width: 100vw;
+  height: 100%;
 `;
 
 export default App;

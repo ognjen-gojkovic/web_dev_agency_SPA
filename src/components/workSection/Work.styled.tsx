@@ -62,6 +62,25 @@ export const WorkStyled = styled.section`
   }
 
   @media screen and (max-width: 480px) {
+    padding-top: 60%;
+    .horizontal-rule {
+      display: none;
+    }
+
+    .work-float {
+      right: 0;
+      width: 90%;
+      height: 350px;
+      margin: 0 5%;
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
   }
   @media screen and (min-width: 481px) and (max-width: 768px) {
     .horizontal-rule {

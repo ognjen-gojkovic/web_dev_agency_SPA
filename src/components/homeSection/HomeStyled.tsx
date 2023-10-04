@@ -64,10 +64,17 @@ export const HomeStyled = styled.section`
   }
   @media screen and (max-width: 480px) {
     width: 100%;
+    background-color: #000;
+
+    video {
+      height: 90%;
+      z-index: 10;
+    }
 
     .content {
       width: 90%;
       align-items: center;
+      z-index: 20;
 
       h1 {
         margin-bottom: 150px;
@@ -137,7 +144,7 @@ export const HomeStyled = styled.section`
       }
     }
   }
-  @media screen and (min-width: 1025px) and (max-width: 1200px) {
+  @media screen and (min-width: 1025px) and (max-width: 1280px) {
     background-color: #000;
 
     video {
