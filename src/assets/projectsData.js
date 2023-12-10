@@ -100,6 +100,35 @@ const projectsData = [
       molestiae, aspernatur amet quidem omnis alias necessitatibus commodi
       nostrum adipisci perspiciatis perferendis iure nihil, ab non!`,
   },
+  {
+    title: "Web Development Agency (SPA)",
+    technologies: [
+      {
+        name: "Javascript",
+        img: IconJavascript,
+      },
+      {
+        name: "Typescript",
+        img: IconTypescript,
+      },
+      {
+        name: "React",
+        img: IconReact,
+      },
+      {
+        name: "Styled Components",
+        img: IconStyledComponents,
+      },
+      {
+        name: "RTL",
+        img: IconReactTestingLibrary,
+      },
+    ],
+    link: "https://github.com/ognjen-gojkovic/web_dev_agency_SPA",
+    desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quod
+      molestiae, aspernatur amet quidem omnis alias necessitatibus commodi
+      nostrum adipisci perspiciatis perferendis iure nihil, ab non!`,
+  },
 ];
 
 export default projectsData;

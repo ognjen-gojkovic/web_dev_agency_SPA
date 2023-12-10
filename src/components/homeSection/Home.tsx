@@ -1,8 +1,9 @@
 import { HomeStyled } from "./HomeStyled";
 import { Fade } from "react-awesome-reveal";
 import HomeVideo from "./../../assets/globeVid.mp4";
+import React from "react";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <Fade triggerOnce className="home-fade">
       <HomeStyled id="home">

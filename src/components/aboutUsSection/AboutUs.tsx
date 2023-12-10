@@ -94,8 +94,6 @@ const AboutUs: React.FC = () => {
           <h2>Our Squad</h2>
           <div className="members">
             {team.map((member, idx) => {
-              let teamMember;
-
               return (
                 <figure>
                   <img
@@ -124,7 +122,12 @@ const AboutUs: React.FC = () => {
                   >
                     <div className="figure-scroll">
                       <figcaption>{member.title}</figcaption>
-                      <figcaption>{member.name}</figcaption>
+                      <figcaption>
+                        {member.name}
+                        <span>
+                          <i className="gg-chevron-double-right" />
+                        </span>
+                      </figcaption>
                       <span>
                         <i className="gg-chevron-down"></i>
                       </span>
@@ -132,52 +135,6 @@ const AboutUs: React.FC = () => {
                   </a>
                 </figure>
               );
-
-              // if (member.name !== "Rock With Us!!1") {
-              //   teamMember = (
-              //     <figure>
-              //       <img
-              //         src={Fire}
-              //         alt="fire"
-              //         className={`fire ${
-              //           clickFire && fireIdx === idx ? "burn" : ""
-              //         }`}
-              //         onClick={(e) => {
-              //           setClickFire(true);
-              //           setFireIdx(idx);
-              //         }}
-              //       />
-              //       <img src={member.img} alt="ozzy" />
-              //       <a
-              //         href={`https://en.wikipedia.org/wiki/${member.name.replace(
-              //           " ",
-              //           "_"
-              //         )}`}
-              //         target="_blank"
-              //         rel="noreferrer"
-              //       >
-              //         <div className="figure-scroll">
-              //           <figcaption>{member.title}</figcaption>
-              //           <figcaption>{member.name}</figcaption>
-              //           <span>
-              //             <i className="gg-chevron-down"></i>
-              //           </span>
-              //         </div>
-              //       </a>
-              //     </figure>
-              //   );
-              // } else {
-              //   teamMember = (
-              //     <a href={member.title} className="add-user">
-              //       <img src={AddUser} alt="add-user" />;
-              //       <div className="figure">
-              //         <figcaption>{member.name}</figcaption>
-              //       </div>
-              //     </a>
-              //   );
-              // }
-
-              return teamMember;
             })}
           </div>
         </Fade>

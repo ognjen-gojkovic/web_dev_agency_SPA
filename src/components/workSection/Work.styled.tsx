@@ -63,14 +63,19 @@ export const WorkStyled = styled.section`
 
   @media screen and (max-width: 480px) {
     padding-top: 60%;
+
     .horizontal-rule {
       display: none;
+    }
+
+    .work-projects {
+      margin-top: 50%;
     }
 
     .work-float {
       right: 0;
       width: 90%;
-      height: 350px;
+      height: 450px;
       margin: 0 5%;
 
       h1 {

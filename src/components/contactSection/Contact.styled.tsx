@@ -141,6 +141,36 @@ export const ContactStyled = styled.section`
       align-items: center;
       flex-direction: column;
 
+      .tooltip {
+        background: rgb(231, 78, 61);
+        border: 3px solid #eee;
+        padding: 30px 90px;
+        color: #eee;
+        position: absolute;
+        top: -200px;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+        z-index: 9999;
+
+        &.error {
+          top: 100px;
+          opacity: 1;
+        }
+
+        & > p {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+        ul {
+          p {
+            margin: 10px 0;
+          }
+          list-style: none;
+          line-height: 20px;
+        }
+      }
+
       h2 {
         margin-bottom: 5%;
         font-size: 2rem;
@@ -208,8 +238,6 @@ export const ContactStyled = styled.section`
             color: #90fcf9;
 
             &:-webkit-autofill {
-              /* -webkit-box-shadow: 0 0 0px 1000px #63b4d1 inset;
-              -webkit-text-fill-color: #90fcf9; */
               transition: background-color 5000s ease-in-out 0s;
               -webkit-text-fill-color: #90fcf9;
             }
@@ -224,6 +252,23 @@ export const ContactStyled = styled.section`
 
             &[type="file"] {
               visibility: hidden;
+            }
+
+            &[type="file"].error {
+              visibility: visible;
+
+              & ~ label {
+                font-size: 7rem;
+              }
+            }
+
+            &.error {
+              border-bottom: 2px solid tomato;
+              animation: inputErr 0.5s ease-in-out;
+
+              & ~ label {
+                color: tomato;
+              }
             }
           }
         }
@@ -267,7 +312,80 @@ export const ContactStyled = styled.section`
     }
   }
 
+  @keyframes inputErr {
+    0% {
+      transform: translateX(7px);
+    }
+    25% {
+      transform: translateX(-7px);
+    }
+    50% {
+      transform: translateX(7px);
+    }
+    75% {
+      transform: translateX(-7px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .wrapper {
+      .wrapper-display {
+        .data-display {
+          flex-direction: column;
+
+          .info {
+            width: 80%;
+            height: 30%;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+          }
+        }
+      }
+      .form {
+        form {
+          .control {
+            display: flex;
+
+            input {
+              left: 0;
+            }
+
+            label {
+              &[for="CV"],
+              &[for="letter"] {
+                left: 0;
+                width: 100%;
+              }
+            }
+          }
+          .btn {
+            align-self: center;
+          }
+        }
+      }
+    }
+  }
+
   @media screen and (min-width: 481px) and (max-width: 768px) {
+    .wrapper {
+      .wrapper-display {
+        .data-display {
+          flex-direction: column;
+
+          .info {
+            width: 80%;
+            height: 30%;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+          }
+        }
+      }
+    }
     .form {
       form {
         align-items: center;

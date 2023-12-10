@@ -144,7 +144,7 @@ export const HomeStyled = styled.section`
       }
     }
   }
-  @media screen and (min-width: 1025px) and (max-width: 1280px) {
+  @media screen and (min-width: 1025px) {
     background-color: #000;
 
     video {

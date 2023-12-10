@@ -19,6 +19,7 @@ export const AboutUsStyled = styled.section`
     width: 60%;
     padding: 40px;
     height: 300px;
+    z-index: 10;
 
     h1 {
       margin: 0 0 20px 20px;
@@ -113,7 +114,8 @@ export const AboutUsStyled = styled.section`
 
       figure {
         margin: 50px 30px 50px 0;
-        width: 300px;
+        /* width: 300px; */
+        flex-basis: 300px;
         height: 400px;
         display: flex;
         justify-content: center;
@@ -163,9 +165,13 @@ export const AboutUsStyled = styled.section`
             color: #90fcf9;
             background-color: #63b4d1;
             border-radius: 0 0 30px 30px;
-            padding-bottom: 10px;
+            margin-top: 10px;
             cursor: pointer;
             //pointer-events: auto;
+
+            & figcaption span i {
+              visibility: hidden;
+            }
 
             & span i {
               transition: all 0.3s ease-in-out;
@@ -175,21 +181,21 @@ export const AboutUsStyled = styled.section`
               transition: all 0.3s ease-in-out;
               top: 85%;
 
-              & span i {
+              & > span i {
                 transition: all 0.3s ease-in-out;
                 transform: rotateZ(180deg);
               }
             }
 
             figcaption {
-              margin: 5px;
-
+              font-size: 1.2rem;
+              margin-top: 5px;
               &:nth-of-type(1) {
                 font-weight: bold;
               }
             }
 
-            span {
+            & > span {
               position: absolute;
               bottom: 10px;
               right: 10px;
@@ -199,21 +205,59 @@ export const AboutUsStyled = styled.section`
 
         &:last-of-type {
           overflow: hidden;
-          .fire.burn {
-            &:hover {
+          &:hover {
+            .fire {
               opacity: 0.8;
-            }
 
-            /* & ~ a .figure-scroll {
-              top: 0;
-            } */
-
-            &:hover ~ a .figure-scroll {
-              top: 0;
+              & ~ a .figure-scroll {
+                top: 0;
+              }
             }
           }
-          a {
+
+          & a {
+            & .figure-scroll {
+              margin-top: 0;
+              z-index: 900;
+              top: -100%;
+              left: 0;
+              font-size: 1.4rem;
+              justify-content: center;
+              border-radius: 30px 30px 0 0;
+              background: linear-gradient(to bottom, #63b4d1 60%, transparent);
+              & figcaption:nth-of-type(1) {
+                display: none;
+              }
+              & figcaption:nth-of-type(2) {
+                margin-bottom: 40px;
+                display: flex;
+                justify-content: space-around;
+              }
+              & figcaption span i {
+                visibility: visible;
+                animation: addUserChevron 0.5s ease-in-out infinite;
+              }
+
+              & > span {
+                display: none;
+              }
+            }
+          }
+        }
+
+        /* &:last-of-type {
+          overflow: hidden;
+          .fire.burn {
             z-index: 999;
+            &:hover {
+              opacity: 0.8;
+              & ~ a .figure-scroll {
+                top: 0;
+              }
+            }
+          }
+
+          a {
             .figure-scroll {
               z-index: 999;
               top: -100%;
@@ -227,13 +271,9 @@ export const AboutUsStyled = styled.section`
               span {
                 display: none;
               }
-
-              &:hover {
-                top: 0;
-              }
             }
           }
-        }
+        } */
       }
 
       /* a.add-user {
@@ -337,7 +377,11 @@ export const AboutUsStyled = styled.section`
               background: linear-gradient(to top, #63b4d1 60%, transparent);
               z-index: 999;
 
-              & span {
+              & figcaption {
+                margin-top: 0;
+              }
+
+              & > span {
                 display: none;
               }
             }
@@ -345,7 +389,7 @@ export const AboutUsStyled = styled.section`
 
           &:last-of-type {
             .fire.burn {
-              opacity: 1;
+              opacity: 0.8;
 
               & ~ a .figure-scroll {
                 top: 0;
@@ -362,13 +406,6 @@ export const AboutUsStyled = styled.section`
                   #63b4d1 60%,
                   transparent
                 );
-                figcaption:nth-of-type(1) {
-                  display: none;
-                }
-
-                &:hover {
-                  top: 0;
-                }
               }
             }
           }
@@ -435,7 +472,8 @@ export const AboutUsStyled = styled.section`
         gap: 20px;
 
         figure {
-          width: 40%;
+          /* width: 40%; */
+          flex-basis: 250px;
           height: 400px;
           overflow: hidden;
 
@@ -456,7 +494,11 @@ export const AboutUsStyled = styled.section`
               background: linear-gradient(to top, #63b4d1 60%, transparent);
               z-index: 999;
 
-              & span {
+              & figcaption {
+                margin-top: 0;
+              }
+
+              & > span {
                 display: none;
               }
             }
@@ -533,7 +575,8 @@ export const AboutUsStyled = styled.section`
         justify-content: center;
 
         figure {
-          width: 40%;
+          /* width: 40%; */
+          flex-basis: 250px;
           height: 400px;
           overflow: hidden;
 
@@ -552,7 +595,11 @@ export const AboutUsStyled = styled.section`
               z-index: 999;
               border-radius: 0 0 30px 30px;
 
-              & span {
+              & figcaption {
+                margin-top: 0;
+              }
+
+              & > span {
                 display: none;
               }
             }
@@ -629,8 +676,8 @@ export const AboutUsStyled = styled.section`
       .members {
         justify-content: center;
 
-        figure {
-          /* width: 200px;
+        /*figure {
+           width: 200px;
           height: 300px;
           overflow: hidden;
 
@@ -664,9 +711,21 @@ export const AboutUsStyled = styled.section`
               padding-bottom: 10px;
               z-index: 999;
             }
-          } */
-        }
+          } 
+        }*/
       }
+    }
+  }
+
+  @keyframes addUserChevron {
+    0% {
+      transform: translateX(5px);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(5px);
     }
   }
 `;

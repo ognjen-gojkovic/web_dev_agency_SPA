@@ -1,5 +1,4 @@
 import React from "react";
-import { Fade } from "react-awesome-reveal";
 import { ContactStyled } from "./Contact.styled";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -21,6 +20,8 @@ interface ContactForm {
 }
 
 const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
+  const cvRef = React.useRef<HTMLInputElement | null>(null);
+  const letterRef = React.useRef<HTMLInputElement | null>(null);
   const [state, setState] = React.useState<ContactForm>({
     fullName: "",
     email: "",
@@ -44,10 +45,20 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
 
   const [slideFlag, setSlideFlag] = React.useState(false);
   const [modalFlag, setModalFlag] = React.useState(false);
+  const [errorMessageFlag, setErrorMessageFlag] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // if any of files is missing don't submit
+    if (
+      (!state.CVPDF && !state.CVImage && !state.fileName1) ||
+      (!state.letterPDF && !state.letterImage && !state.fileName2)
+    ) {
+      alert("Please add CV/Letter before submitting.");
+
+      return;
+    }
     setStateForm({ ...state });
     setState({
       fullName: "",
@@ -63,9 +74,15 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
     handleNav();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let selectedFile: File | undefined;
+  React.useEffect(() => {
+    const timeoutIndex = setTimeout(() => {
+      setErrorMessageFlag(false);
+    }, 2000);
 
+    return () => clearTimeout(timeoutIndex);
+  }, [errorMessageFlag]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
       case "name":
         setState({ ...state, fullName: e.target.value });
@@ -73,35 +90,63 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
 
       case "email":
         setState({ ...state, email: e.target.value });
+        cvRef.current?.focus();
         break;
 
       case "CV":
-        if (e.target.files) selectedFile = e.target.files[0];
-        handleFile(selectedFile, e.target.name);
+        handleFile(e);
+        letterRef.current?.focus();
         break;
 
       case "letter":
-        if (e.target.files) selectedFile = e.target.files[0];
-        handleFile(selectedFile, e.target.name);
+        handleFile(e);
         break;
       default:
         return;
     }
   };
 
-  const handleFile = (file: File | undefined, name: string) => {
+  const handleFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     let reader = new FileReader();
+    let acceptedTypes: string[] = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "application/pdf",
+    ];
+
+    let file: File | null = null;
+
+    if (event.target.files) {
+      file = event.target.files[0];
+    }
+
+    // handle error for no file or invalid format
+    if (
+      !event.target.files ||
+      !acceptedTypes.includes(event.target.files[0].type)
+    ) {
+      setErrorMessageFlag(true);
+      setState({
+        ...state,
+        CVPDF: null,
+        fileName1: "",
+        letterPDF: null,
+        fileName2: "",
+      });
+      return;
+    }
 
     if (file && file.type === "application/pdf") {
       reader.readAsDataURL(file);
       reader.onloadend = (e) => {
-        if (e.target?.result && name === "CV") {
+        if (e.target?.result && event.target.name === "CV" && file) {
           setState({
             ...state,
             CVPDF: e.target?.result,
             fileName1: file.name,
           });
-        } else if (e.target?.result && name === "letter") {
+        } else if (e.target?.result && event.target.name === "letter" && file) {
           setState({
             ...state,
             letterPDF: e.target?.result,
@@ -109,9 +154,13 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
           });
         }
       };
-    } else if (file && file.type === "image/jpeg") {
+    } else if (
+      (file && file.type === "image/jpeg") ||
+      (file && file.type === "image/png") ||
+      (file && file.type === "image/jpg")
+    ) {
       let imgFile = URL.createObjectURL(file);
-      if (name === "CV")
+      if (event.target.name === "CV")
         setState({ ...state, CVImage: imgFile, fileName1: file.name });
       else {
         setState({ ...state, letterImage: imgFile, fileName2: file.name });
@@ -119,7 +168,7 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
     }
   };
 
-  const cropFileName = (name: string) => {
+  const cropFileName = (name: string): string => {
     let short: string = "";
     let dataType: string = "";
     if (name.length > 10) {
@@ -127,6 +176,21 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
       dataType = name.split(".")[1];
     } else return name;
     return short.concat(`.${dataType}...`);
+  };
+
+  const handleError = (
+    e: React.FormEvent<HTMLInputElement>,
+    inputName: string
+  ) => {
+    let temp = e.currentTarget.classList;
+
+    if (inputName === e.currentTarget.name) temp.add("error");
+
+    const timeoutIndex = setTimeout(() => {
+      temp.remove("error");
+    }, 2000);
+
+    return () => clearTimeout(timeoutIndex);
   };
 
   return (
@@ -193,6 +257,16 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
         )}
         {navVisible && (
           <div className="form">
+            <div className={`tooltip ${errorMessageFlag && "error"}`}>
+              <p>Invalid file format!</p>
+              <hr />
+              <ul>
+                <p>Accepted fromats:</p>
+                <li>.jpg</li>
+                <li>.jpeg</li>
+                <li>.pdf</li>
+              </ul>
+            </div>
             <h2>Contact Us</h2>
             <form action="" onSubmit={(e) => handleSubmit(e)}>
               <div className="control">
@@ -200,9 +274,11 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
                   type="text"
                   id="name"
                   name="name"
+                  minLength={3}
                   required
                   value={state.fullName}
                   onChange={handleChange}
+                  onInvalid={(e) => handleError(e, "name")}
                 />
                 <label htmlFor="name" className="label">
                   Full name:
@@ -217,6 +293,7 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
                   value={state.email}
                   required
                   onChange={handleChange}
+                  onInvalid={(e) => handleError(e, "email")}
                 />
                 <label htmlFor="email" className="label">
                   Email:
@@ -233,8 +310,10 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
                   type="file"
                   id="CV"
                   name="CV"
-                  required
                   onChange={handleChange}
+                  accept="image/jpeg, .pdf"
+                  ref={cvRef}
+                  //onInvalid={(e) => handleError(e)}
                 />
               </div>
               <div className="control">
@@ -247,8 +326,10 @@ const Contact: React.FC<Props> = ({ handleNav, navVisible }) => {
                   type="file"
                   id="letter"
                   name="letter"
-                  required
                   onChange={handleChange}
+                  accept="image/jpeg, .pdf"
+                  ref={letterRef}
+                  //onInvalid={(e) => handleError(e)}
                 />
               </div>
 

@@ -3,7 +3,7 @@ import { WorkStyled } from "./Work.styled";
 import Project from "./project/Project";
 import projectsData from "./../../assets/projectsData";
 
-const Work = () => {
+const Work: React.FC = () => {
   return (
     <WorkStyled id="work">
       <div className="horizontal-rule"></div>
