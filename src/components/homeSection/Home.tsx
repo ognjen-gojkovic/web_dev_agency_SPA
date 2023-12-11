@@ -8,6 +8,7 @@ const Home: React.FC = () => {
     <Fade triggerOnce className="home-fade">
       <HomeStyled id="home">
         <video autoPlay loop muted>
+          {/* <source src="/public/globeVid.mp4" type="video/mp4" /> */}
           <source src={HomeVideo} type="video/mp4" />
           Your browser doesn't support video tags.
         </video>

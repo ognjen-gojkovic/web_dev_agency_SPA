@@ -3,7 +3,7 @@ import { Fade } from "react-awesome-reveal";
 import ItTeam from "./../../assets/images/it_team_3.jpg";
 import Ozzy from "./../../assets/images/CEO_Ozzy.jpg";
 import Lemmy from "./../../assets/images/lemmy-kilmister.jpg";
-import Robert from "./../../assets/images/robert-plant.webp";
+import Robert from "./../../assets/images/robert-plant.jpg";
 import Nikki from "./../../assets/images/nikki-sixx4.jpg";
 import Steven from "./../../assets/images/steven-tyler4.jpg";
 import AddUser from "./../../assets/images/add-user.jpg";
